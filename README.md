@@ -21,14 +21,16 @@ Have the client choose the size N of each data element (1, 2, 4, and 8 bytes). P
 
 ### Preparing your computer
 
-Make sure you are running on a single core. Running on a single core can be done by going into the BIOS options during startup. This will provide the best results by ensuring control of the experiment. Compile two versions of the code in GCC with the flags:
+Make sure you are running on a single core. Running on a single core can be done by going into the BIOS options during startup. This will provide the best results by ensuring control of the experiment. Compile two versions of the code with GCC:
 
-- `-o avx_enabled -03 -march=native`
-- `-o avx_disabled -03 -march=native -mno-sse4`
+- `gcc -o avx_enabled.app -O3 -march=native avx_performance.c`
+- `gcc -o avx_disabled.app -O3 -march=native -mno-sse4 avx_performance.c`
 
 These ensure optimization for your cpu, one with AVX and one without.
 
-If you are unsure if your CPU supports AVX, feel free to look at the assembly code and try to identify `VADDPD` instructions in the `avx_enabled` program.
+If you are unsure if your CPU supports AVX, feel free to look at the assembly code and try to identify `VADDPD` instructions in assembly after creating it with:
+
+- `gcc -o avx_enabled.asm -O3 -march=native -S avx_performance.c`
 
 ### Running the code
 
